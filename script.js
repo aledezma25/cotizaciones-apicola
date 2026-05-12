@@ -150,12 +150,34 @@ function exportToPDF() {
     // Forzar layout de escritorio (funciona en mobile y desktop)
     document.documentElement.classList.add('exporting-pdf');
 
+    // Intercambiar textareas por divs para asegurar que el texto fluya bien en el PDF
+    const textareas = document.querySelectorAll('textarea');
+    const placeholders = [];
+    
+    textareas.forEach(ta => {
+        const div = document.createElement('div');
+        div.className = 'textarea-placeholder';
+        div.textContent = ta.value;
+        div.style.whiteSpace = 'pre-wrap';
+        div.style.width = ta.offsetWidth + 'px';
+        div.style.minHeight = ta.offsetHeight + 'px';
+        
+        ta.parentElement.insertBefore(div, ta);
+        ta.style.display = 'none';
+        placeholders.push({ ta, div });
+    });
+
     // Esperar al reflow antes de capturar
     setTimeout(() => {
         html2pdf().set(opt).from(element).save().then(() => {
             document.documentElement.classList.remove('exporting-pdf');
+            // Revertir el cambio
+            placeholders.forEach(p => {
+                p.ta.style.display = 'block';
+                p.div.remove();
+            });
         });
-    }, 300);
+    }, 400);
 }
 
 // Persistencia de datos en localStorage

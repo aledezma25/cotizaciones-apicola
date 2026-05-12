@@ -351,12 +351,36 @@ input, textarea {
     margin-bottom: 0.5rem;
 }
 
-.totals-block {
-    width: 300px;
+.notes-block, .totals-block {
     background-color: #fcfcfc;
     border: 1px solid var(--border-color);
     border-radius: var(--border-radius);
-    padding: 1rem;
+    padding: 1.5rem;
+    min-height: 200px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    box-sizing: border-box;
+}
+
+
+.notes-block {
+    flex: 1;
+}
+
+.totals-block {
+    width: 320px;
+}
+
+.transparent-textarea, .textarea-placeholder {
+    width: 100%;
+    border: none;
+    background: transparent;
+    resize: none;
+    font-family: inherit;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: var(--text-color);
+    padding: 0;
+    outline: none;
 }
 
 .total-row {
@@ -427,6 +451,7 @@ input, textarea {
 .summary-section {
     display: flex;
     justify-content: space-between;
+    align-items: flex-start;
     margin-bottom: 3rem;
     margin-top: 1.5rem;
     padding-bottom: 1rem;
@@ -434,6 +459,14 @@ input, textarea {
     page-break-inside: avoid !important;
     break-inside: avoid !important;
 }
+
+
+.transparent-textarea:hover, 
+.transparent-textarea:focus {
+    border-color: #eee;
+    background: #fcfcfc;
+}
+
 
 
 
@@ -552,6 +585,8 @@ html.exporting-pdf textarea {
     border: none !important;
     background: transparent !important;
     box-shadow: none !important;
+    overflow: hidden !important;
 }
+
 
 
