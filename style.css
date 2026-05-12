@@ -502,6 +502,17 @@ input, textarea {
         width: 100%;
     }
 
+    .table-section {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        margin-bottom: 1rem;
+    }
+
+    .items-table {
+        min-width: 650px;
+    }
+
+
     /* Tablas responsivas básicas */
     .items-table th.col-price, .items-table th.col-total,
     .items-table td.cell-price, .items-table td.cell-total {
