@@ -399,24 +399,43 @@ input, textarea {
     text-align: center;
     color: #777;
     font-size: 0.85rem;
-    border-top: 1px solid var(--border-color);
     padding-top: 1rem;
 }
+
+.quote-footer::before {
+    content: "";
+    display: block;
+    width: 100%;
+    border-top: 1px solid var(--border-color);
+    margin-bottom: 1rem;
+}
+
 
 /* Evitar cortes crudos entre páginas del PDF */
 .quote-header,
 .info-section,
-.table-section,
 .summary-section,
-.quote-footer {
-    page-break-inside: avoid;
-    break-inside: avoid;
+.quote-footer,
+.item-row {
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
+    margin-top: 1rem;
 }
 
-.item-row {
-    page-break-inside: avoid;
-    break-inside: avoid;
+
+/* Forzar que el bloque de resumen se mantenga unido */
+.summary-section {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 3rem;
+    margin-top: 1.5rem;
+    padding-bottom: 1rem;
+    gap: 2rem;
+    page-break-inside: avoid !important;
+    break-inside: avoid !important;
 }
+
+
 
 /* Media Queries */
 @media (max-width: 768px) {
@@ -499,14 +518,25 @@ input, textarea {
     }
 }
 /* Forzar layout de escritorio durante exportación de PDF (aplica en mobile) */
+html.exporting-pdf, html.exporting-pdf body {
+    width: 750px !important;
+    overflow: visible !important;
+}
+
 html.exporting-pdf .document-container {
-    width: 800px !important;
-    margin: 0 auto !important;
+    width: 750px !important;
+    max-width: 750px !important;
+    min-width: 750px !important;
+    margin: 0 !important;
     padding: 2rem !important;
     box-shadow: none !important;
     box-sizing: border-box !important;
-    overflow: visible !important;
+    background: white !important;
 }
+
+
+
+
 
 html.exporting-pdf .quote-header { flex-direction: row !important; }
 

@@ -51,19 +51,23 @@ function init() {
 }
 
 // Agregar fila a la tabla
-function addRow(data = { qty: 1, desc: '', price: 0 }) {
+function addRow(data = {}) {
+    const qty = data.qty || 1;
+    const desc = data.desc || '';
+    const price = data.price || 0;
+    
     const tr = document.createElement('tr');
     tr.className = 'item-row';
     
     tr.innerHTML = `
         <td class="cell-qty">
-            <input type="number" class="transparent-input input-qty" value="${data.qty}" min="0" step="1">
+            <input type="number" class="transparent-input input-qty" value="${qty}" min="0" step="1">
         </td>
         <td class="cell-desc">
-            <input type="text" class="transparent-input input-desc" value="${data.desc}" placeholder="Descripción del producto o servicio">
+            <input type="text" class="transparent-input input-desc" value="${desc}" placeholder="Descripción del producto o servicio">
         </td>
         <td class="cell-price">
-            <input type="number" class="transparent-input input-price" value="${data.price}" min="0" step="0.01">
+            <input type="number" class="transparent-input input-price" value="${price}" min="0" step="0.01">
         </td>
         <td class="cell-total" data-value="0">$ 0</td>
         <td class="cell-action no-print">
@@ -118,6 +122,7 @@ function calculateTotals() {
 
 // Formatear moneda
 function formatCurrency(value) {
+    if (isNaN(value)) value = 0;
     return '$ ' + value.toLocaleString('es-CO', { 
         minimumFractionDigits: 0, 
         maximumFractionDigits: 2 
@@ -134,11 +139,11 @@ function exportToPDF() {
         margin:       0.3,
         filename:     `${quoteNumber}_${clientName}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
+        html2canvas:  { scale: 2, useCORS: true, scrollY: 0, width: 750 },
         jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
         pagebreak:    {
             mode: ['avoid-all', 'css'],
-            avoid: ['.quote-header', '.info-section', '.table-section', '.summary-section', '.totals-block', '.notes-block', '.quote-footer', '.item-row']
+            avoid: ['.summary-section', '.totals-block', '.quote-header', '.info-section', '.quote-footer']
         }
     };
 
@@ -150,7 +155,7 @@ function exportToPDF() {
         html2pdf().set(opt).from(element).save().then(() => {
             document.documentElement.classList.remove('exporting-pdf');
         });
-    }, 80);
+    }, 300);
 }
 
 // Persistencia de datos en localStorage
