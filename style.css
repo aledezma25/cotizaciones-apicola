@@ -30,7 +30,25 @@ body {
     display: flex;
     justify-content: flex-end;
     gap: 1rem;
+    align-items: center;
 }
+
+.doc-type-selector {
+    margin-right: auto;
+}
+
+.doc-type-selector select {
+    padding: 0.5rem 0.8rem;
+    border-radius: var(--border-radius);
+    border: 1px solid var(--border-color);
+    background-color: white;
+    font-family: inherit;
+    font-size: 0.9rem;
+    cursor: pointer;
+    outline: none;
+    font-weight: 500;
+}
+
 
 .btn {
     padding: 0.6rem 1.2rem;

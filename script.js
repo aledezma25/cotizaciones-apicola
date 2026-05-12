@@ -15,10 +15,13 @@ btnAddRow.addEventListener('click', addRow);
 btnExportPdf.addEventListener('click', exportToPDF);
 btnReset.addEventListener('click', resetForm);
 taxRateInput.addEventListener('input', calculateTotals);
+document.getElementById('doc-type').addEventListener('change', updateDocType);
+
 
 // Escuchar cambios en todo el documento para guardar autómaticamente
 document.addEventListener('input', (e) => {
-    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+    if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.tagName === 'SELECT') {
+
         saveToLocalStorage();
         
         // Si cambia cantidad o precio, recalcular
@@ -221,6 +224,9 @@ function loadFromLocalStorage() {
                 }
             }
             
+            // Actualizar interfaz según tipo de documento cargado
+            updateDocType();
+            
             // Cargar filas
             if (data.items && data.items.length > 0) {
                 tableBody.innerHTML = ''; // Limpiar filas por defecto
@@ -246,5 +252,27 @@ function resetForm() {
         
         // Recargar página para limpiar estado
         window.location.reload();
+    }
+}
+// Cambiar entre Cotización y Factura
+function updateDocType() {
+    const docTypeSelect = document.getElementById('doc-type');
+    const type = docTypeSelect.value;
+    const mainTitle = document.getElementById('main-title');
+    const labelNumber = document.getElementById('label-number');
+    const quoteNumberInput = document.getElementById('quote-number');
+    
+    if (type === 'factura') {
+        mainTitle.textContent = 'FACTURACIÓN';
+        labelNumber.textContent = 'Nº Facturación:';
+        if (quoteNumberInput.value === 'COT-001') {
+            quoteNumberInput.value = 'FACT-001';
+        }
+    } else {
+        mainTitle.textContent = 'COTIZACIÓN';
+        labelNumber.textContent = 'Nº Cotización:';
+        if (quoteNumberInput.value === 'FACT-001') {
+            quoteNumberInput.value = 'COT-001';
+        }
     }
 }
