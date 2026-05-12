@@ -126,7 +126,7 @@ input, textarea {
     border: 1px solid transparent;
     background-color: transparent;
     padding: 0.5rem;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     border-radius: 4px;
     resize: vertical;
     transition: border-color 0.2s;
@@ -376,7 +376,7 @@ input, textarea {
     background: transparent;
     resize: none;
     font-family: inherit;
-    font-size: 0.9rem;
+    font-size: 0.7rem;
     line-height: 1.6;
     color: var(--text-color);
     padding: 0;
