@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Cotizaciones - Apicola la Estancia</title>
+    <!-- Inter font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- html2pdf -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="actions-bar no-print">
+        <button id="btn-export-pdf" class="btn primary">Descargar PDF</button>
+        <button id="btn-reset" class="btn secondary">Limpiar Datos</button>
+    </div>
+
+    <div class="document-container" id="quote-document">
+        <header class="quote-header">
+            <div class="company-logo-section">
+                <div class="logo-wrapper">
+                    <img id="company-logo" src="img/logo.png" alt="Logo de la Empresa" onerror="this.src='https://via.placeholder.com/250x120?text=Logo'">
+                </div>
+                <div class="company-info">
+                    <input type="text" id="company-name" class="header-input bold-text" value="Apicola la Estancia" placeholder="Nombre de la empresa">
+                    <input type="text" id="company-slogan" class="header-input slogan" value="Calidad y pureza natural" placeholder="Eslogan de la empresa">
+                </div>
+            </div>
+            
+            <div class="quote-details">
+                <h1 class="quote-title">COTIZACIÓN</h1>
+                <div class="detail-row">
+                    <label>Fecha:</label>
+                    <input type="date" id="quote-date" class="transparent-input">
+                </div>
+                <div class="detail-row">
+                    <label>Nº Cotización:</label>
+                    <input type="text" id="quote-number" class="transparent-input" value="COT-001" placeholder="Ej: COT-001">
+                </div>
+                <div class="detail-row">
+                    <label>ID Cliente:</label>
+                    <input type="text" id="client-id" class="transparent-input" placeholder="ID del Cliente">
+                </div>
+            </div>
+        </header>
+
+        <div class="info-section">
+            <div class="info-block client-info">
+                <h3>Información del Cliente</h3>
+                <input type="text" id="client-name" class="transparent-input" placeholder="Nombre del cliente o empresa">
+                <input type="text" id="client-address" class="transparent-input" placeholder="Dirección">
+                <div class="input-group">
+                    <input type="text" id="client-city" class="transparent-input" placeholder="Ciudad">
+                    <input type="text" id="client-zip" class="transparent-input" placeholder="Código Postal">
+                </div>
+                <input type="tel" id="client-phone" class="transparent-input" placeholder="Teléfono">
+            </div>
+            <div class="info-block sales-info">
+                <h3>Información de Venta</h3>
+                <div class="detail-row">
+                    <label>Vendedor:</label>
+                    <input type="text" id="salesperson-name" class="transparent-input" placeholder="Nombre del vendedor">
+                </div>
+                <div class="detail-row">
+                    <label>Teléfono:</label>
+                    <input type="tel" id="salesperson-phone" class="transparent-input" placeholder="Teléfono del vendedor">
+                </div>
+                <div class="detail-row">
+                    <label>Condiciones:</label>
+                    <input type="text" id="payment-terms" class="transparent-input" value="15 días" placeholder="Términos de pago">
+                </div>
+                <div class="detail-row">
+                    <label>Vencimiento:</label>
+                    <input type="date" id="due-date" class="transparent-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="table-section">
+            <table class="items-table" id="items-table">
+                <thead>
+                    <tr>
+                        <th class="col-qty">Cantidad</th>
+                        <th class="col-desc">Descripción</th>
+                        <th class="col-price">Precio Unitario</th>
+                        <th class="col-total">Total de Línea</th>
+                        <th class="col-action no-print"></th>
+                    </tr>
+                </thead>
+                <tbody id="table-body">
+                    <!-- Filas dinámicas -->
+                </tbody>
+            </table>
+            
+            <button id="btn-add-row" class="btn text-btn no-print">+ Agregar producto</button>
+        </div>
+
+        <div class="summary-section">
+            <div class="notes-block">
+                <h3>Notas o Instrucciones Especiales</h3>
+                <textarea id="quote-notes" class="transparent-textarea" placeholder="Escriba aquí condiciones adicionales, garantías o notas para el cliente..." rows="4"></textarea>
+            </div>
+            
+            <div class="totals-block">
+                <div class="total-row">
+                    <label>Subtotal:</label>
+                    <span id="summary-subtotal" class="currency-value">$ 0</span>
+                </div>
+                <div class="total-row">
+                    <label>Impuesto (%) <input type="number" id="tax-rate" class="tax-input" value="19" min="0" max="100" step="0.1">:</label>
+                    <span id="summary-tax" class="currency-value">$ 0</span>
+                </div>
+                <div class="total-row grand-total">
+                    <label>TOTAL:</label>
+                    <span id="summary-total" class="currency-value">$ 0</span>
+                </div>
+            </div>
+        </div>
+        
+        <footer class="quote-footer">
+            <p>Gracias por su preferencia.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
