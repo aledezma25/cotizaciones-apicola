@@ -21,15 +21,16 @@ Debe incluir campos editables para:
 - Eslogan
 - Fecha
 - Número de factura/cotización
-- ID del cliente
 - Información del cliente:
   - Nombre
+  - NIT (Antes ID Cliente)
   - Dirección
   - Ciudad
-  - Código postal
   - Teléfono
-- Información del vendedor
-- Teléfono del vendedor
+- Información del vendedor (Campos Fijos):
+  - Nombre: Diego Fernando Urbano
+  - NIT: 1088975676-3
+  - Celular: 3125763407
 - Condiciones de pago
 - Fecha de vencimiento
 
@@ -190,6 +191,12 @@ Usar:
 ```text
 html2pdf.js
 ```
+
+### Configuración de Exportación (Crítico)
+
+- El PDF debe mantener siempre el diseño de escritorio ("desktop layout"), incluso cuando se descargue desde un dispositivo móvil.
+- No se deben mostrar botones de acción (como "+ Agregar producto" o "Descargar PDF") en el documento final.
+- Los bordes y fondos de los inputs deben ocultarse para que el PDF parezca un documento impreso profesional.
 
 ---
 

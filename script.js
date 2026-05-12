@@ -129,22 +129,28 @@ function exportToPDF() {
     const element = document.getElementById('quote-document');
     const quoteNumber = document.getElementById('quote-number').value || 'COTIZACION';
     const clientName = document.getElementById('client-name').value || 'Cliente';
-    
+
     const opt = {
-        margin:       0.3, // margen uniforme
+        margin:       0.3,
         filename:     `${quoteNumber}_${clientName}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
         html2canvas:  { scale: 2, useCORS: true, scrollY: 0 },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' },
+        pagebreak:    {
+            mode: ['avoid-all', 'css'],
+            avoid: ['.quote-header', '.info-section', '.table-section', '.summary-section', '.totals-block', '.notes-block', '.quote-footer', '.item-row']
+        }
     };
-    
-    // Añadir clase temporal para ajustar visualización durante el renderizado si es necesario
-    element.classList.add('pdf-mode');
-    
-    // Promesa de html2pdf
-    html2pdf().set(opt).from(element).save().then(() => {
-        element.classList.remove('pdf-mode');
-    });
+
+    // Forzar layout de escritorio (funciona en mobile y desktop)
+    document.documentElement.classList.add('exporting-pdf');
+
+    // Esperar al reflow antes de capturar
+    setTimeout(() => {
+        html2pdf().set(opt).from(element).save().then(() => {
+            document.documentElement.classList.remove('exporting-pdf');
+        });
+    }, 80);
 }
 
 // Persistencia de datos en localStorage

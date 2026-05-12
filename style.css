@@ -337,6 +337,7 @@ input, textarea {
     display: flex;
     justify-content: space-between;
     margin-bottom: 3rem;
+    padding-bottom: 1rem;
     gap: 2rem;
 }
 
@@ -402,6 +403,21 @@ input, textarea {
     padding-top: 1rem;
 }
 
+/* Evitar cortes crudos entre páginas del PDF */
+.quote-header,
+.info-section,
+.table-section,
+.summary-section,
+.quote-footer {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
+.item-row {
+    page-break-inside: avoid;
+    break-inside: avoid;
+}
+
 /* Media Queries */
 @media (max-width: 768px) {
     .document-container {
@@ -460,12 +476,13 @@ input, textarea {
     
     .pdf-mode {
         padding: 0 !important;
-        margin: 0 !important;
+        margin: 0.3rem !important;
         box-shadow: none !important;
         border: none !important;
         max-width: 100% !important;
         height: auto !important;
         overflow: hidden !important;
+        padding-bottom: 1rem !important;
     }
 
     input, textarea {
@@ -481,3 +498,20 @@ input, textarea {
         border-bottom: 1px solid #ddd;
     }
 }
+/* Forzar layout de escritorio durante exportación de PDF (aplica en mobile) */
+html.exporting-pdf .quote-header { flex-direction: row !important; }
+html.exporting-pdf .company-logo-section { width: 50% !important; }
+html.exporting-pdf .quote-details { width: 40% !important; text-align: right !important; }
+html.exporting-pdf .detail-row { justify-content: flex-end !important; }
+html.exporting-pdf .info-section { flex-direction: row !important; }
+html.exporting-pdf .summary-section { flex-direction: row !important; }
+html.exporting-pdf .totals-block { width: 300px !important; }
+html.exporting-pdf .no-print { display: none !important; }
+html.exporting-pdf input, 
+html.exporting-pdf textarea {
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+
