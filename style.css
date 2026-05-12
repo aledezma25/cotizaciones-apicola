@@ -499,7 +499,17 @@ input, textarea {
     }
 }
 /* Forzar layout de escritorio durante exportación de PDF (aplica en mobile) */
+html.exporting-pdf .document-container {
+    width: 800px !important;
+    margin: 0 auto !important;
+    padding: 2rem !important;
+    box-shadow: none !important;
+    box-sizing: border-box !important;
+    overflow: visible !important;
+}
+
 html.exporting-pdf .quote-header { flex-direction: row !important; }
+
 html.exporting-pdf .company-logo-section { width: 50% !important; }
 html.exporting-pdf .quote-details { width: 40% !important; text-align: right !important; }
 html.exporting-pdf .detail-row { justify-content: flex-end !important; }
